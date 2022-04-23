@@ -1,2 +1,2 @@
-# req-order
-req-order rest api golang
+# template
+template rest api golang
