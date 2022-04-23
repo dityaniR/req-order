@@ -31,15 +31,15 @@ const (
 	getROHeader  = "GetROHeader"
 	qGetROHeader = `SELECT roh.* FROM th_reqprod roh`
 
-	getROHDetails  = "getROHDetails"
-	qGetROHDetails = `select roh.* from th_reqprod roh
+	getROHDetails  = "GetRODHeader"
+	qGetROHDetails = `select * from th_reqprod 
 						where Req_Number = ?`
 
-	getRODDetails = "getRODDetails"
+	getRODDetails = "GetRODDetail"
 	qGetRDDetails = `select rod.* from td_reqprod rod
 						where Req_Number = ?`
 
-	getROProcods  = "getROProcods"
+	getROProcods  = "GetRODProcod"
 	qGetROProcods = `select a.* from ro_realproses a
 						inner join (select max(RO_Date) RO_Date, RO_Procod from	ro_realproses 
 									group by RO_Procod) b

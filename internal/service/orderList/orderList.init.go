@@ -8,7 +8,7 @@ import (
 type Data interface {
 	GetROHeader(ctx context.Context) ([]orderlist.Orders, error)
 
-	GetRODHeader(ctx context.Context, sNumber string) ([]orderlist.ReqOrderHeader, error)
+	GetRODHeader(ctx context.Context, sNumber string) (orderlist.ReqOrderHeader, error)
 	GetRODDetail(ctx context.Context, sNumber string) ([]orderlist.ReqOrderDetail, error)
 	GetRODProcod(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error)
 }

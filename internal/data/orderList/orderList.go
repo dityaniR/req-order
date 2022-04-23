@@ -2,7 +2,6 @@ package orderList
 
 import (
 	"context"
-	"net/http"
 	orderlist "request-order/internal/entity/orderList"
 	"request-order/pkg/errors"
 )
@@ -30,20 +29,20 @@ func (d Data) GetROHeader(ctx context.Context) ([]orderlist.Orders, error) {
 	return headers, nil
 }
 
-func (d Data) GetRODHeader(ctx context.Context, sNumber string, headers http.Header) ([]orderlist.ReqOrderHeader, error) {
-	dHeader := []orderlist.ReqOrderHeader{}
+func (d Data) GetRODHeader(ctx context.Context, sNumber string) (orderlist.ReqOrderHeader, error) {
+	dHeader := orderlist.ReqOrderHeader{}
 
 	d.UpdateConn()
 
-	_, err := d.stmt[getROHeader].QueryxContext(ctx, sNumber)
-	if err != nil {
+	if err := d.stmt[getROHDetails].QueryRowxContext(ctx, sNumber).StructScan(&dHeader); err != nil {
 		return dHeader, errors.Wrap(err, "[DATA][GetRODHeader]")
 	}
 
+	println("data : " + sNumber)
 	return dHeader, nil
 }
 
-func (d Data) GetRODDetail(ctx context.Context, sNumber string, headers http.Header) ([]orderlist.ReqOrderDetail, error) {
+func (d Data) GetRODDetail(ctx context.Context, sNumber string) ([]orderlist.ReqOrderDetail, error) {
 	dDetail := []orderlist.ReqOrderDetail{}
 
 	d.UpdateConn()
@@ -66,7 +65,7 @@ func (d Data) GetRODDetail(ctx context.Context, sNumber string, headers http.Hea
 	return dDetail, nil
 }
 
-func (d Data) GetRODProcod(ctx context.Context, sNumber string, headers http.Header) ([]orderlist.ROProcode, error) {
+func (d Data) GetRODProcod(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error) {
 	dROProcod := []orderlist.ROProcode{}
 
 	d.UpdateConn()

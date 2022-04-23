@@ -8,9 +8,11 @@ import (
 type Service interface {
 	GetRO(ctx context.Context) ([]orderlist.Orders, error)
 
-	GetRODetHeader(ctx context.Context, sNumber string) ([]orderlist.ReqOrderHeader, error)
-	GetRODetDetail(ctx context.Context, sNumber string) ([]orderlist.ReqOrderDetail, error)
-	GetRODetProcod(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error)
+	//trialGabung
+	GetROdHeader(ctx context.Context, sNumber string) (orderlist.ListDetailsRO, error)
+	// GetROdHeader(ctx context.Context, sNumber string) (orderlist.ReqOrderHeader, error)
+	// GetRODetDetail(ctx context.Context, sNumber string) ([]orderlist.ReqOrderDetail, error)
+	// GetRODetProcod(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error)
 }
 
 type (
