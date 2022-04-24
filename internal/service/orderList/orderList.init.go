@@ -6,11 +6,12 @@ import (
 )
 
 type Data interface {
-	GetROHeader(ctx context.Context) ([]orderlist.Orders, error)
+	GetROHeader(ctx context.Context) ([]orderlist.ReqOrderHeader, error)
 
 	GetRODHeader(ctx context.Context, sNumber string) (orderlist.ReqOrderHeader, error)
 	GetRODDetail(ctx context.Context, sNumber string) ([]orderlist.ReqOrderDetail, error)
-	GetRODProcod(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error)
+	GetRODProcods(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error)
+	GetRODProcod(ctx context.Context, sProcod string) (orderlist.ROProcode, error)
 }
 
 type Service struct {

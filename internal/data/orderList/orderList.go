@@ -6,8 +6,8 @@ import (
 	"request-order/pkg/errors"
 )
 
-func (d Data) GetROHeader(ctx context.Context) ([]orderlist.Orders, error) {
-	headers := []orderlist.Orders{}
+func (d Data) GetROHeader(ctx context.Context) ([]orderlist.ReqOrderHeader, error) {
+	headers := []orderlist.ReqOrderHeader{}
 
 	d.UpdateConn()
 
@@ -19,7 +19,7 @@ func (d Data) GetROHeader(ctx context.Context) ([]orderlist.Orders, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		header := orderlist.Orders{}
+		header := orderlist.ReqOrderHeader{}
 		if err = rows.StructScan(&header); err != nil {
 			return headers, errors.Wrap(err, "[DATA][GetROHeader2]")
 		}
@@ -65,7 +65,7 @@ func (d Data) GetRODDetail(ctx context.Context, sNumber string) ([]orderlist.Req
 	return dDetail, nil
 }
 
-func (d Data) GetRODProcod(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error) {
+func (d Data) GetRODProcods(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error) {
 	dROProcod := []orderlist.ROProcode{}
 
 	d.UpdateConn()
@@ -86,4 +86,17 @@ func (d Data) GetRODProcod(ctx context.Context, sNumber string) ([]orderlist.ROP
 	}
 
 	return dROProcod, nil
+}
+
+func (d Data) GetRODProcod(ctx context.Context, sProcod string) (orderlist.ROProcode, error) {
+	dRProcod := orderlist.ROProcode{}
+
+	d.UpdateConn()
+
+	if err := d.stmt[getROProcod].QueryRowxContext(ctx, sProcod).StructScan(&dRProcod); err != nil {
+		return dRProcod, errors.Wrap(err, "[DATA][GetRODHeader]")
+	}
+
+	println("data procod : " + sProcod)
+	return dRProcod, nil
 }

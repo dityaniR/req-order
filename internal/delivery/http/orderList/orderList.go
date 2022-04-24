@@ -53,3 +53,22 @@ func (h *Handler) GetRODetHeader(w http.ResponseWriter, r *http.Request) {
 	resp.Data = result
 	resp.Metadata = metadata
 }
+
+func (h *Handler) GetROProCode(w http.ResponseWriter, r *http.Request) {
+	resp := response.Response{}
+	defer resp.RenderJSON(w, r)
+
+	ctx := r.Context()
+
+	sProCode := r.URL.Query()["procode"][0]
+	result, err := h.service.GetROProcod(ctx, sProCode)
+	if err != nil {
+		resp = httpHelper.ParseErrorCode(err.Error())
+		log.Printf("[ERROR][%s][%s] %s | Reason: %s", r.RemoteAddr, r.Method, r.URL, err.Error())
+		return
+	}
+
+	resp.Data = result
+	resp.Metadata = "metadata"
+	log.Printf("[INFO][%s][%s] %s", r.RemoteAddr, r.Method, r.URL)
+}

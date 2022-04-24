@@ -48,6 +48,14 @@ const (
 						left join td_reqprod c
 						on req_prodcode = a.RO_Procod 
 						where Req_Number = ?`
+
+	getROProcod  = "GetRODProcod"
+	qGetROProcod = `select a.* from ro_realproses a
+						inner join (select max(RO_Date) RO_Date, RO_Procod from	ro_realproses 
+									group by RO_Procod) b
+						on a.RO_Date = b.RO_Date
+						and a.RO_Procod = b.RO_Procod
+						where a.RO_Procod = ?`
 )
 
 var (
@@ -56,6 +64,7 @@ var (
 		{getROHDetails, qGetROHDetails},
 		{getRODDetails, qGetRDDetails},
 		{getROProcods, qGetROProcods},
+		{getROProcod, qGetROProcod},
 	}
 	upsertStmt = []statement{}
 	deleteStmt = []statement{}

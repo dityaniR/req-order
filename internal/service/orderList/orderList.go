@@ -6,8 +6,8 @@ import (
 	"request-order/pkg/errors"
 )
 
-func (s Service) GetRO(ctx context.Context) ([]orderlist.Orders, error) {
-	var roheaders []orderlist.Orders
+func (s Service) GetRO(ctx context.Context) ([]orderlist.ReqOrderHeader, error) {
+	var roheaders []orderlist.ReqOrderHeader
 
 	headers, err := s.data.GetROHeader(ctx)
 	if err != nil {
@@ -50,7 +50,7 @@ func (s Service) GetROdHeader(ctx context.Context, sNumber string) (orderlist.Li
 		return result, errors.Wrap(err, "[SERVICE][GetDetailPerNumber]")
 	}
 
-	detprocod, err = s.data.GetRODProcod(ctx, sNumber)
+	detprocod, err = s.data.GetRODProcods(ctx, sNumber)
 	if err != nil {
 		return result, errors.Wrap(err, "[SERVICE][GetDetailPerNumber]")
 	}
@@ -62,32 +62,15 @@ func (s Service) GetROdHeader(ctx context.Context, sNumber string) (orderlist.Li
 	return result, nil
 }
 
-//pisah
-// func (s Service) GetRODetDetail(ctx context.Context, sNumber string) ([]orderlist.ReqOrderDetail, error) {
-// 	// var rodetails []orderlist.ReqOrderDetail
-
-// 	// details, err := s.data.GetRODDetail(ctx, sNumber)
-// 	// if err != nil {
-// 	// 	return details, errors.Wrap(err, "[SERVICE][GetRODetDetail]")
-// 	// }
-
-// 	// rodetails = details
-// 	// return rodetails, err
-// 	rodetails, err := s.data.GetRODDetail(ctx, sNumber)
-// 	if err != nil {
-// 		return rodetails, errors.Wrap(err, "[SERVICE][GetRODDetail]")
-// 	}
-// 	return rodetails, nil
-// }
-
-// func (s Service) GetRODetProcod(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error) {
-// 	var roprocods []orderlist.ROProcode
-
-// 	procods, err := s.data.GetRODProcod(ctx, sNumber)
-// 	if err != nil {
-// 		return procods, errors.Wrap(err, "[SERVICE][GetRODetProcod]")
-// 	}
-
-// 	roprocods = procods
-// 	return roprocods, err
-// }
+func (s Service) GetROProcod(ctx context.Context, sProcod string) (orderlist.ROProcode, error) {
+	var (
+		result orderlist.ROProcode
+		err    error
+	)
+	result, err = s.data.GetRODProcod(ctx, sProcod)
+	println("service procod: " + sProcod)
+	if err != nil {
+		return result, errors.Wrap(err, "[SERVICE][GetROProcod]")
+	}
+	return result, nil
+}

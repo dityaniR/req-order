@@ -1,7 +1,7 @@
 server:
     port: ":8080"
 database:
-    master: "root:@tcp(localhost:3306)/centuryoutlet_1h"
+    master: "root:@tcp(localhost:3306)/test"
 api:
     auth: "http://auth.jx-production/auth"
 swagger:

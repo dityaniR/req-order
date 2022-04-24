@@ -17,6 +17,7 @@ type OrderHandler interface {
 	GetOrder(w http.ResponseWriter, r *http.Request)
 	GetRODetHeader(w http.ResponseWriter, r *http.Request)
 	//GetRODetDetail(w http.ResponseWriter, r *http.Request)
+	GetROProCode(w http.ResponseWriter, r *http.Request)
 }
 
 // Server ...
