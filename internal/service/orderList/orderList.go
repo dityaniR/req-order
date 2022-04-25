@@ -30,15 +30,15 @@ func (s Service) GetRO(ctx context.Context) ([]orderlist.ReqOrderHeader, error) 
 // }
 
 //trail di gabung
-func (s Service) GetROdHeader(ctx context.Context, sNumber string) (orderlist.ListDetailsRO, error) {
+func (s Service) GetROdHeader(ctx context.Context, sNumber string) (orderlist.ReqOrderHeader, error) {
 	var (
 		detheader  orderlist.ReqOrderHeader
 		detdetails []orderlist.ReqOrderDetail
-		detprocod  []orderlist.ROProcode
 
-		result orderlist.ListDetailsRO
+		result orderlist.ReqOrderHeader
 		err    error
 	)
+
 	detheader, err = s.data.GetRODHeader(ctx, sNumber)
 	println("service : " + sNumber)
 	if err != nil {
@@ -50,15 +50,9 @@ func (s Service) GetROdHeader(ctx context.Context, sNumber string) (orderlist.Li
 		return result, errors.Wrap(err, "[SERVICE][GetDetailPerNumber]")
 	}
 
-	detprocod, err = s.data.GetRODProcods(ctx, sNumber)
-	if err != nil {
-		return result, errors.Wrap(err, "[SERVICE][GetDetailPerNumber]")
-	}
+	detheader.ReqDetail = detdetails
 
-	result.ReqOrderHeader = detheader
-	result.ReqOrderDetail = detdetails
-	result.ROProcode = detprocod
-
+	result = detheader
 	return result, nil
 }
 
@@ -73,4 +67,16 @@ func (s Service) GetROProcod(ctx context.Context, sProcod string) (orderlist.ROP
 		return result, errors.Wrap(err, "[SERVICE][GetROProcod]")
 	}
 	return result, nil
+}
+
+func (s Service) GetROProcods(ctx context.Context) ([]orderlist.ROProcode, error) {
+	var rprocodes []orderlist.ROProcode
+
+	procods, err := s.data.GetRODProcods(ctx)
+	if err != nil {
+		return procods, errors.Wrap(err, "[SERVICE][GetROHeader]")
+	}
+
+	rprocodes = procods
+	return rprocodes, err
 }

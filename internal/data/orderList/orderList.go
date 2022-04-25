@@ -65,12 +65,12 @@ func (d Data) GetRODDetail(ctx context.Context, sNumber string) ([]orderlist.Req
 	return dDetail, nil
 }
 
-func (d Data) GetRODProcods(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error) {
+func (d Data) GetRODProcods(ctx context.Context) ([]orderlist.ROProcode, error) {
 	dROProcod := []orderlist.ROProcode{}
 
 	d.UpdateConn()
 
-	rows, err := d.stmt[getROProcods].QueryxContext(ctx, sNumber)
+	rows, err := d.stmt[getROProcods].QueryxContext(ctx)
 	if err != nil {
 		return dROProcod, errors.Wrap(err, "[DATA][GetRODProcod1]")
 	}

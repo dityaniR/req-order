@@ -10,7 +10,7 @@ type Data interface {
 
 	GetRODHeader(ctx context.Context, sNumber string) (orderlist.ReqOrderHeader, error)
 	GetRODDetail(ctx context.Context, sNumber string) ([]orderlist.ReqOrderDetail, error)
-	GetRODProcods(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error)
+	GetRODProcods(ctx context.Context) ([]orderlist.ROProcode, error)
 	GetRODProcod(ctx context.Context, sProcod string) (orderlist.ROProcode, error)
 }
 

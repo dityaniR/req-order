@@ -17,6 +17,7 @@ func (s *Server) Handler() *mux.Router {
 	r := mux.NewRouter()
 	// Jika tidak ditemukan, jangan diubah.
 	r.NotFoundHandler = http.HandlerFunc(notFoundHandler)
+
 	// Health Check
 	r.HandleFunc("", defaultHandler).Methods("GET")
 	r.HandleFunc("/", defaultHandler).Methods("GET")
@@ -31,8 +32,9 @@ func (s *Server) Handler() *mux.Router {
 
 	order := router.PathPrefix("/ro").Subrouter()
 	order.HandleFunc("/orders", s.Orders.GetOrder).Methods("GET")
-	order.HandleFunc("/details", s.Orders.GetRODetHeader).Methods("GET")
-	order.HandleFunc("/procod", s.Orders.GetROProCode).Methods("GET")
+	order.HandleFunc("/orders/{id}", s.Orders.GetRODetHeader).Methods("GET")
+	order.HandleFunc("/procod", s.Orders.GetROProCodes).Methods("GET")
+	order.HandleFunc("/procod/{procod}", s.Orders.GetROProCode).Methods("GET")
 
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 	return r

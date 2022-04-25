@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 
@@ -31,15 +30,10 @@ func Init(opts ...Option) error {
 	for _, optFunc := range opts {
 		optFunc(opt)
 	}
-
-	fmt.Println(opt.configFile)
-
 	out, err := ioutil.ReadFile(opt.configFile)
 	if err != nil {
 		return err
 	}
-
-	fmt.Println("Test")
 
 	return yaml.Unmarshal(out, &config)
 }
