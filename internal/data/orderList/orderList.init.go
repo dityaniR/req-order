@@ -38,42 +38,36 @@ const (
 						where Req_Number = ?`
 
 	getRODDetails = "GetRODDetail"
-	qGetRDDetails = `select a.Req_Number,Req_ProdCode,RO_Name,Req_Qty,Req_OrderLimit,Remain,
-						RO_NettPrice,Req_TotalNettPrice
-					from Td_ReqProd a
-					left join TH_ReqProd b
-					on a.Req_Number = b.Req_Number
-					left join (select a.* from RO_RealProses a
-								inner join (select max(RO_Date) RO_Date,RO_Procod 
-											from RO_RealProses
-											group by RO_Procod) b
-								on a.RO_Date = b.RO_Date
-								and a.RO_Procod = b.RO_Procod) c
-					on RO_Procod = Req_ProdCode
-					where a.Req_Number = ?`
+	qGetRDDetails = `select distinct Req_ProdCode,RO_Name,Req_Qty,ifnull(RO_OrderUnit,1) RO_OrderUnit,
+						SellPackName,RO_Stock,KetOr,RO_Hold,Req_OrderLimit,Remain,
+						(ifnull(RO_SellPrice,0)*0.75)/ifnull(MedPack,0) RO_NettPrice,
+						(ifnull(RO_SellPrice,0)*0.75)/ifnull(MedPack,0) * ifnull(Req_Qty,0) RO_TotalNettPrice,
+						RO_MinOrder,RO_MaxOrder,RO_LocalProcod,Req_UserID 
+					from td_reqprod
+					left join ro_realproses
+					on ro_number = Req_Number 
+						and ro_procod = Req_ProdCode 
+					where req_number = ?`
 
 	getROProcods  = "GetRODProcods"
-	qGetROProcods = `select a.RO_Procod,a.RO_Name,a.RO_QtyOrder,a.RO_MaxOrder,
-						a.RO_Stock,a.RO_Hold,a.KetOr,a.OrderPackName,
-						a.RO_NettPrice,a.RO_NettPriceTotal
-					from RO_RealProses a
-					inner join (select max(RO_Date) RO_Date,RO_Procod 
-								from RO_RealProses
-								group by RO_Procod) b
-					on a.RO_Date = b.RO_Date
-					and a.RO_Procod = b.RO_Procod`
+	qGetROProcods = `select distinct RO_Procod Req_ProdCode,RO_Name,
+						(ifnull(RO_SellPrice,0)*0.75)/ifnull(MedPack,0) RO_NettPrice
+					from ro_realproses
+					where RO_Number is not null   #karena belum ada perhitungan
+					group by RO_Procod,RO_Name
+					order by RO_Procod,RO_Name desc `
 
+	//belumada perhitungan
 	getROProcod  = "GetRODProcod"
-	qGetROProcod = `select a.RO_Procod,a.RO_Name,a.RO_QtyOrder,a.RO_MaxOrder,
-						a.RO_Stock,a.RO_Hold,a.KetOr,a.OrderPackName,
-						a.RO_NettPrice,a.RO_NettPriceTotal
-					from RO_RealProses a
-					inner join (select max(RO_Date) RO_Date,RO_Procod 
-								from RO_RealProses
-								group by RO_Procod) b
-					on a.RO_Date = b.RO_Date
-					and a.RO_Procod = b.RO_Procod
-					where a.RO_Procod =?`
+	qGetROProcod = `select distinct RO_Procod Req_ProdCode,RO_Name,RO_QtyOrder Req_Qty,ifnull(RO_OrderUnit,1) RO_OrderUnit,
+						SellPackName,RO_Stock,KetOr,RO_Hold,RO_Limit Req_OrderLimit,Remain,
+						(ifnull(RO_SellPrice,0)*0.75)/ifnull(MedPack,0) RO_NettPrice,
+						(ifnull(RO_SellPrice,0)*0.75)/ifnull(MedPack,0) * ifnull(RO_QtyOrder,0) RO_TotalNettPrice,
+						RO_MinOrder,RO_MaxOrder,RO_LocalProcod,'' Req_UserID 
+					from ro_realproses
+					where ro_procod = ?
+					order by RO_Date desc 
+					limit 1`
 )
 
 var (

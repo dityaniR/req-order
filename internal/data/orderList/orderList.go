@@ -88,8 +88,8 @@ func (d Data) GetRODProcods(ctx context.Context) ([]orderlist.ROProcode, error) 
 	return dROProcod, nil
 }
 
-func (d Data) GetRODProcod(ctx context.Context, sProcod string) (orderlist.ROProcode, error) {
-	dRProcod := orderlist.ROProcode{}
+func (d Data) GetRODProcod(ctx context.Context, sProcod string) (orderlist.ReqOrderDetail, error) {
+	dRProcod := orderlist.ReqOrderDetail{}
 
 	d.UpdateConn()
 

@@ -56,9 +56,9 @@ func (s Service) GetROdHeader(ctx context.Context, sNumber string) (orderlist.Re
 	return result, nil
 }
 
-func (s Service) GetROProcod(ctx context.Context, sProcod string) (orderlist.ROProcode, error) {
+func (s Service) GetROProcod(ctx context.Context, sProcod string) (orderlist.ReqOrderDetail, error) {
 	var (
-		result orderlist.ROProcode
+		result orderlist.ReqOrderDetail
 		err    error
 	)
 	result, err = s.data.GetRODProcod(ctx, sProcod)

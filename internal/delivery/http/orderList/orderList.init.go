@@ -14,7 +14,7 @@ type Service interface {
 	// GetRODetDetail(ctx context.Context, sNumber string) ([]orderlist.ReqOrderDetail, error)
 	// GetRODetProcod(ctx context.Context, sNumber string) ([]orderlist.ROProcode, error)
 	GetROProcods(ctx context.Context) ([]orderlist.ROProcode, error)
-	GetROProcod(ctx context.Context, sProcod string) (orderlist.ROProcode, error)
+	GetROProcod(ctx context.Context, sProcod string) (orderlist.ReqOrderDetail, error)
 }
 
 type (
