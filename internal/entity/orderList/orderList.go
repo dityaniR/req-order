@@ -27,7 +27,7 @@ import (
 type ReqOrderHeader struct {
 	Number         null.String      `db:"Req_Number" json:"Number"`
 	ConfirmYN      null.String      `db:"Req_ConfirmYN" json:"ConfirmYN"`
-	Date           null.String      `db:"Req_Date" json:"Date"`
+	Date           null.String      `db:"Req_ConfirmDate" json:"Date"`
 	ConfirmBy      null.Int         `db:"Req_ConfirmBy" json:"ConfirmBy"`
 	TotalNettPrice null.Float       `db:"Req_TotalNettPrice" json:"TotalNettPrice"`
 	ReqDetail      []ReqOrderDetail `json:"ReqDetail"`
@@ -35,37 +35,29 @@ type ReqOrderHeader struct {
 
 // List Req Orders Detail
 type ReqOrderDetail struct {
-	//Number             null.String `db:"Req_Number" json:"number"`
-	ReqProdCode      null.String `db:"Req_ProdCode" json:"ReqProdCode"`
-	ROName           null.String `db:"RO_Name" json:"ROName"`
-	ReqQty           null.Float  `db:"Req_Qty" json:"ReqQty"`
-	ROOrderUnit      null.Int    `db:"RO_OrderUnit" json:"ROOrderUnit"`
-	SellPackName     null.String `db:"SellPackName" json:"SellPackName"`
-	ROStock          null.Float  `db:"RO_Stock" json:"ROStock"`
-	KetOr            null.String `db:"KetOr" json:"KetOr"`
-	ROHold           null.Int    `db:"RO_Hold" json:"ROHold"`
-	ReqOrderLimit    null.Float  `db:"Req_OrderLimit" json:"ReqOrderLimit"`
-	Remain           null.Float  `db:"Remain" json:"Remain"`
-	RONettPrice      null.Float  `db:"RO_NettPrice" json:"RONettPrice"`
-	ROTotalNettPrice null.Float  `db:"RO_TotalNettPrice" json:"ROTotalNettPrice"`
-	ROMinOrder       null.Float  `db:"RO_MinOrder" json:"ROMinOrder"`
-	ROMaxOrder       null.Float  `db:"RO_MaxOrder" json:"ROMaxOrder"`
-	ROLocalProcod    null.String `db:"RO_LocalProcod" json:"ROLocalProcod"`
-	ReqUserID        null.String `db:"Req_UserID" json:"ReqUserID"`
+	ReqProdCode       null.String `db:"Req_ProdCode" json:"ReqProdCode"`
+	ReqName           null.String `db:"Req_Name" json:"ReqName"`
+	ReqQty            null.Float  `db:"Req_Qty" json:"ReqQty"`
+	ReqOrderUnit      null.Int    `db:"Req_OrderUnit" json:"ReqOrderUnit"`
+	ReqSellPackName   null.String `db:"Req_SellPackName" json:"ReqSellPackName"`
+	ReqStock          null.Float  `db:"Req_Stock" json:"ReqStock"`
+	ReqKetOr          null.String `db:"Req_KetOr" json:"ReqKetOr"`
+	ReqHold           null.Int    `db:"Req_Hold" json:"ReqHold"`
+	ReqOrderLimit     null.Float  `db:"Req_OrderLimit" json:"ReqOrderLimit"`
+	ReqRemain         null.Float  `db:"Req_Remain" json:"ReqRemain"`
+	ReqNettPrice      null.Float  `db:"Req_NettPrice" json:"ReqNettPrice"`
+	ReqNettPriceTotal null.Float  `db:"Req_NettPriceTotal" json:"ReqNettPriceTotal"`
+	ReqMinOrder       null.Float  `db:"Req_MinOrder" json:"ReqMinOrder"`
+	ReqMaxOrder       null.Float  `db:"Req_MaxOrder" json:"ReqMaxOrder"`
+	ReqLocalProcod    null.String `db:"Req_LocalProcod" json:"ReqLocalProcod"`
+	ReqUserID         null.String `db:"Req_UserID" json:"ReqUserID"`
 }
 
 // List RO Procode
 type ROProcode struct {
-	ReqProdCode null.String `db:"Req_ProdCode" json:"ReqProdCode"`
-	ROName      null.String `db:"RO_Name" json:"ROName"`
-	// ROQtyOrder       null.Int    `db:"RO_QtyOrder" json:"ROQtyOrder"`
-	// ROMaxOrder       null.Float  `db:"RO_MaxOrder" json:"ROMaxOrder"`
-	// ROStock          null.Float  `db:"RO_Stock" json:"ROStock"`
-	// ROHold         	 null.Float  `db:"RO_Hold" json:"ROHold"`
-	// KetOr            null.String `db:"KetOr" json:"KetOr"`
-	// OrderPackName    null.String `db:"OrderPackName" json:"OrderPackName"`
-	RONettPrice null.Float `db:"RO_NettPrice" json:"RONettPrice"`
-	// RONettPriceTotal null.Float  `db:"RO_NettPriceTotal" json:"RONettPriceTotal"`
+	ProdCode  null.String `db:"Req_ProdCode" json:"ProdCode"`
+	Name      null.String `db:"Req_Name" json:"Name"`
+	NettPrice null.Float  `db:"Req_NettPrice" json:"NettPrice"`
 }
 
 // //List Details

@@ -38,7 +38,7 @@ func (h *Handler) GetRODetHeader(w http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
 	params := mux.Vars(r)
-	sNum   := params["id"]
+	sNum := params["id"]
 
 	// sNum := r.URL.Query()["num"][0]
 	result, err = h.service.GetROdHeader(ctx, sNum)
@@ -88,7 +88,7 @@ func (h *Handler) GetROProCode(w http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
 	params := mux.Vars(r)
-	sProcod   := params["procod"]
+	sProcod := params["procod"]
 
 	// sNum := r.URL.Query()["num"][0]
 	result, err = h.service.GetROProcod(ctx, sProcod)

@@ -29,44 +29,39 @@ func (d *Data) UpdateConn() {
 // Query List to Prepare
 const (
 	getROHeader  = "GetROHeader"
-	qGetROHeader = `select Req_Number,Req_ConfirmYN,Req_Date,Req_ConfirmBy,Req_TotalNettPrice
+	qGetROHeader = `select Req_Number,Req_ConfirmYN,Req_ConfirmDate,Req_ConfirmBy,Req_TotalNettPrice
 						From TH_ReqProd`
 
 	getROHDetails  = "GetRODHeader"
-	qGetROHDetails = `select Req_Number,Req_ConfirmYN,Req_Date,Req_ConfirmBy,Req_TotalNettPrice
+	qGetROHDetails = `select Req_Number,Req_ConfirmYN,Req_ConfirmDate,Req_ConfirmBy,Req_TotalNettPrice
 						From TH_ReqProd 
 						where Req_Number = ?`
 
 	getRODDetails = "GetRODDetail"
-	qGetRDDetails = `select distinct Req_ProdCode,RO_Name,Req_Qty,ifnull(RO_OrderUnit,1) RO_OrderUnit,
-						SellPackName,RO_Stock,KetOr,RO_Hold,Req_OrderLimit,Remain,
-						(ifnull(RO_SellPrice,0)*0.75)/ifnull(MedPack,0) RO_NettPrice,
-						(ifnull(RO_SellPrice,0)*0.75)/ifnull(MedPack,0) * ifnull(Req_Qty,0) RO_TotalNettPrice,
-						RO_MinOrder,RO_MaxOrder,RO_LocalProcod,Req_UserID 
+	qGetRDDetails = `select distinct Req_ProdCode,Req_Name,Req_Qty,ifnull(Req_OrderUnit,1) Req_OrderUnit,
+						Req_SellPackName,Req_Stock,Req_KetOr,Req_Hold,Req_OrderLimit,Req_Remain,
+						Req_NettPrice,Req_NettPriceTotal,
+						Req_MinOrder,Req_MaxOrder,ifnull(Req_LocalProcod,'N') Req_LocalProcod,Req_UserID 
 					from td_reqprod
-					left join ro_realproses
-					on ro_number = Req_Number 
-						and ro_procod = Req_ProdCode 
 					where req_number = ?`
 
+	//nanti ambil datanya dari mh_product
 	getROProcods  = "GetRODProcods"
-	qGetROProcods = `select distinct RO_Procod Req_ProdCode,RO_Name,
-						(ifnull(RO_SellPrice,0)*0.75)/ifnull(MedPack,0) RO_NettPrice
-					from ro_realproses
-					where RO_Number is not null   #karena belum ada perhitungan
-					group by RO_Procod,RO_Name
-					order by RO_Procod,RO_Name desc `
+	qGetROProcods = `select distinct Req_ProdCode,ifnull(Req_Name,'') Req_Name,
+						ifnull(Req_NettPrice,0) Req_NettPrice
+					from td_reqprod
+					order by Req_ProdCode,Req_Name`
 
 	//belumada perhitungan
 	getROProcod  = "GetRODProcod"
-	qGetROProcod = `select distinct RO_Procod Req_ProdCode,RO_Name,RO_QtyOrder Req_Qty,ifnull(RO_OrderUnit,1) RO_OrderUnit,
-						SellPackName,RO_Stock,KetOr,RO_Hold,RO_Limit Req_OrderLimit,Remain,
-						(ifnull(RO_SellPrice,0)*0.75)/ifnull(MedPack,0) RO_NettPrice,
-						(ifnull(RO_SellPrice,0)*0.75)/ifnull(MedPack,0) * ifnull(RO_QtyOrder,0) RO_TotalNettPrice,
-						RO_MinOrder,RO_MaxOrder,RO_LocalProcod,'' Req_UserID 
-					from ro_realproses
-					where ro_procod = ?
-					order by RO_Date desc 
+	qGetROProcod = `#belum ada perhitungan					
+					select distinct Req_ProdCode,Req_Name,0 Req_Qty,ifnull(Req_OrderUnit,1) Req_OrderUnit,
+						Req_SellPackName,Req_Stock,Req_KetOr,Req_Hold,Req_OrderLimit,Req_Remain,
+						Req_NettPrice,0 Req_NettPriceTotal,
+						Req_MinOrder,Req_MaxOrder,ifnull(Req_LocalProcod,'N') Req_LocalProcod,'' Req_UserID 
+					from td_reqprod
+					where Req_ProdCode = ?					
+					order by Req_LastUpdate desc 
 					limit 1`
 )
 
