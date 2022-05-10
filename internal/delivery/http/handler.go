@@ -33,6 +33,7 @@ func (s *Server) Handler() *mux.Router {
 	order := router.PathPrefix("/ro").Subrouter()
 	order.HandleFunc("/orders", s.Orders.GetOrder).Methods("GET")
 	order.HandleFunc("/orders/{id}", s.Orders.GetRODetHeader).Methods("GET")
+
 	order.HandleFunc("/procod", s.Orders.GetROProCodes).Methods("GET")
 	order.HandleFunc("/procod/{procod}", s.Orders.GetROProCode).Methods("GET")
 

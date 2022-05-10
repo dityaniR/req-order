@@ -27,7 +27,7 @@ import (
 type ReqOrderHeader struct {
 	Number         null.String      `db:"Req_Number" json:"Number"`
 	ConfirmYN      null.String      `db:"Req_ConfirmYN" json:"ConfirmYN"`
-	Date           null.String      `db:"Req_ConfirmDate" json:"Date"`
+	Date           null.String      `db:"Req_ConfirmDate" json:"ConfirmDate"`
 	ConfirmBy      null.Int         `db:"Req_ConfirmBy" json:"ConfirmBy"`
 	TotalNettPrice null.Float       `db:"Req_TotalNettPrice" json:"TotalNettPrice"`
 	ReqDetail      []ReqOrderDetail `json:"ReqDetail"`

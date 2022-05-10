@@ -1,7 +1,7 @@
 server:
     port: ":8080"
 database:
-    master: "root:@tcp(127.0.0.1:3306)/centuryoutlet_1h"
+    master: "root:@tcp(127.0.0.1:3306)/db_req_order"
 api:
     auth: "https://staging-api.cfu.pharmalink.id/auth"
 swagger:
