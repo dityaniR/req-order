@@ -50,7 +50,18 @@ type ReqOrderDetail struct {
 	ReqMinOrder       null.Float  `db:"Req_MinOrder" json:"ReqMinOrder"`
 	ReqMaxOrder       null.Float  `db:"Req_MaxOrder" json:"ReqMaxOrder"`
 	ReqLocalProcod    null.String `db:"Req_LocalProcod" json:"ReqLocalProcod"`
+	ReqPurchNum       null.String `db:"Req_PurchNum" json:"ReqPurchNum"`
+	ReqPurchDate      null.String `db:"Req_PurchDate" json:"ReqPurchDate"`
+	ReqAlocNum        null.String `db:"Req_AlocNum" json:"ReqAlocNum"`
+	ReqAlocDate       null.String `db:"Req_AlocDate" json:"ReqAlocDate"`
+	ReqTrfNum         null.String `db:"Req_TrfNum" json:"ReqTrfNum"`
+	ReqTrfDate        null.String `db:"Req_TrfDate" json:"ReqTrfDate"`
+	ReqOutletRcvNum   null.String `db:"Req_OutletRcvNum" json:"ReqOutletRcvNum"`
+	ReqOutletRcvDate  null.String `db:"Req_OutletRcvDate" json:"ReqOutletRcvDate"`
+	ReqCancelCode     null.String `db:"Req_CancelCode" json:"ReqCancelCode"`
+	ReqCancelDate     null.String `db:"Req_CancelDate" json:"ReqCancelDate"`
 	ReqUserID         null.String `db:"Req_UserID" json:"ReqUserID"`
+	ReqLastUpdate     null.String `db:"Req_LastUpdate" json:"ReqLastUpdate"`
 }
 
 // List RO Procode

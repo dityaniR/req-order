@@ -41,7 +41,9 @@ const (
 	qGetRDDetails = `select distinct Req_ProdCode,TRIM(Req_Name) Req_Name,Req_Qty,ifnull(Req_OrderUnit,1) Req_OrderUnit,
 						TRIM(Req_SellPackName) Req_SellPackName,Req_Stock,TRIM(Req_KetOr) Req_KetOr,Req_Hold,Req_OrderLimit,Req_Remain,
 						Req_NettPrice,Req_NettPriceTotal,
-						Req_MinOrder,Req_MaxOrder,ifnull(Req_LocalProcod,'N') Req_LocalProcod,Req_UserID 
+						Req_MinOrder,Req_MaxOrder,ifnull(Req_LocalProcod,'N') Req_LocalProcod,
+						Req_PurchNum,Req_PurchDate,Req_AlocNum,Req_AlocDate,Req_TrfNum,Req_TrfDate,Req_OutletRcvNum,Req_OutletRcvDate,
+						Req_CancelCode,Req_CancelDate,Req_UserID,Req_LastUpdate
 					from td_reqprod
 					where req_number = ?`
 
