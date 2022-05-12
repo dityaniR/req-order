@@ -30,7 +30,8 @@ func (d *Data) UpdateConn() {
 const (
 	getROHeader  = "GetROHeader"
 	qGetROHeader = `select Req_Number,Req_ConfirmYN,Req_ConfirmDate,Req_ConfirmBy,Req_TotalNettPrice
-						From TH_ReqProd`
+						From TH_ReqProd
+					order by Req_Number desc`
 
 	getROHDetails  = "GetRODHeader"
 	qGetROHDetails = `select Req_Number,Req_ConfirmYN,Req_ConfirmDate,Req_ConfirmBy,Req_TotalNettPrice
