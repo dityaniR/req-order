@@ -46,7 +46,8 @@ const (
 						Req_PurchNum,Req_PurchDate,Req_AlocNum,Req_AlocDate,Req_TrfNum,Req_TrfDate,Req_OutletRcvNum,Req_OutletRcvDate,
 						Req_CancelCode,Req_CancelDate,Req_UserID,Req_LastUpdate
 					from td_reqprod
-					where req_number = ?`
+					where req_number = ?
+					order by Req_ProdCode`
 
 	//nanti ambil datanya dari mh_product
 	getROProcods  = "GetRODProcods"
